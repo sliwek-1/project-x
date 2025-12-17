@@ -26,12 +26,12 @@ interface FormData {
 const schema = yup.object({
     email: yup
         .string()
-        .email("Invalid email")
-        .required("Email is required"),
+        .email("Email niepoprawny")
+        .required("Email jest wymagany"),
     password: yup
         .string()
-        .required("Password is required")
-        .min(8, "Min 8 characters"),
+        .required("Hasło jest wymagane")
+        .min(8, "Minimum 8 znaków"),
 })
 
 export function Login() {
@@ -68,23 +68,22 @@ export function Login() {
     return (
         <>
             <main className="min-h-screen flex flex-col items-center justify-center text-center">
-                <h1>Login</h1>
+                <h1>Logowanie</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md flex flex-col items-center gap-4">
-                    <div>
-                        <TextField
-                          {...register("email")}
-                          sx={{ m: 1, minWidth: '20vw',}}
-                          id="outlined-multiline-flexible"
-                          label="Email"
-                          multiline
-                          maxRows={4}
-                        />
-                        <p>{errors.email?.message}</p>
+                    <div className="flex flex-col">
+                        <FormControl  sx={{ m: 1, minWidth: '20vw',}}> 
+                            <TextField
+                              {...register("email")}
+                              id="outlined-multiline-flexible"
+                              label="Email"
+                            />
+                        </FormControl>
+                        <p className="text-red-400">{errors.email?.message}</p>
                     </div> 
 
                     <div className="flex flex-col">
                         <FormControl sx={{ m: 1, minWidth: '20vw',}} variant="outlined">
-                          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                          <InputLabel htmlFor="outlined-adornment-password">Hasło</InputLabel>
                           <OutlinedInput
                             {...register("password")}
                             id="outlined-adornment-password"
@@ -104,13 +103,13 @@ export function Login() {
                                 </IconButton>
                               </InputAdornment>
                             }
-                            label="Password"
+                            label="Hasło"
                           />
                         </FormControl>
-                        <p>{errors.password?.message}</p>
+                        <p className="text-red-400" >{errors.password?.message}</p>
                     </div>
 
-                    <Button type="submit" variant="contained">Submit</Button>
+                    <Button type="submit" variant="contained">Zaloguj</Button>
                 </form>
             </main>
         </>
